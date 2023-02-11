@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+import os, sys
+import new, build
+
+project_name = "CMaker-Project"
+
+def main(argv):
+    if len(sys.argv) < 2 or len(sys.argv) > 4:
+        print("Invalid arguements")
+        sys.exit(1)
+
+    if sys.argv[1] == "new":
+        if len(sys.argv) == 3:
+            global project_name
+            project_name = sys.argv[2]
+        new.init(project_name)
+
+    elif sys.argv[1] == "build":
+        if len(sys.argv) == 3:
+            if sys.argv[2] == "--debug" or sys.argv[2] == "-d":
+                build.build_debug()
+            elif sys.argv[2] == "--release" or sys.argv[2] == "-r":
+                build.build_release()
+        else:
+            build.build_debug()
+    elif sys.argv[1] == "run":
+        if len(sys.argv) == 3:
+            if sys.argv[2] == "--debug" or sys.argv[2] == "-d":
+                build.build_debug()
+                build.run("debug")
+            elif sys.argv[2] == "--release" or sys.argv[2] == "-r":
+                build.build_release()
+                build.run("release")
+        else:
+            build.build_debug()
+            build.run("debug")
+    elif sys.argv[1] == "clean":
+        if len(sys.argv) == 3:
+            if sys.argv[2] == "--all" or sys.argv[2] == "-a":
+                build.clean_all()
+        else:
+            build.clean()
+    elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
+        print("Commands:\n\
+               \tnew:\n\
+               \t\tinitializes a new cmake++ build enviornment, takes project name as argument\n\
+               \tbuild:\n\
+               \t\tdefault: builds debug cmake build and stores binary in 'project'/bin/debug/\n\
+               \t\t--debug | -d: explicitly state debug build preference\n\
+               \t\t--release | -r: builds release cmake build and stores binary in 'project'/bin/release/\n\
+               \trun:\n\
+               \t\tdefault: builds debug cmake build and then runs the executable\n\
+               \t\t--debug | -d: explicitly state debug build preference\n\
+               \t\t--release | -r: builds release cmake build and then runs the executable\n\
+               \tclean:\n\
+               \t\tdefault: removes all cmake build files in the build directory\n\
+               \t\t--all | -a: removes all cmake build files from build directory and removes debug and release directories")
+    else:
+        print("Arguement error")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
