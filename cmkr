@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import os, sys
-from src import help, version, new, build, run, clean, add, scripts
+from src import help, version, new, build, run, clean, add, scripts, util
 
 def main(args):
     if len(args) == 0:
@@ -13,6 +13,7 @@ def main(args):
     elif args[0] == "--version" or args[0] == "-v":
         version()
     elif args[0] == "new":
+        __unbox()
         new(args[1:])
     elif args[0] == "build":
         build(args[1:])
@@ -24,6 +25,15 @@ def main(args):
         add(args[1:])
     else:
         print("Invalid arguments")
+
+def __unbox():
+    home_dir = os.path.expanduser("~")
+    check_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker/unbox.txt")
+    if os.path.exists(check_path):
+        fix_path = os.path.join(home_dir, ".scripts/cmaker/templates/default")
+        util.mkdir(fix_path, "bin")
+        util.mkdir(fix_path, "build")
+        os.system("rm -rdf {}".format(check_path))
 
 if __name__ == "__main__":
     main(sys.argv[1:])

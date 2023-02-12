@@ -6,8 +6,13 @@ CMaker is a CMake qualitity-of-life tool. Strives to be unopinionated and custom
 - Simple cmkr commands for building  and running
 - Customizable project specific and template specific commands 
 
+### Requirements:
+- CMake
+- Make
+- Python3
+
 ## Setup
-CMaker was developed primarily for Unix, however it is cross platform with detection for windows users. If you are on windows the commands will default to powershell.
+CMaker was developed primarily for Unix, however, using git bash (with some confirguring of CMake and make) or using WSL will give full functionality on Windows
 - ### Unix
 Path: ```~/.scripts/cmaker/```
 - Bash:\
@@ -18,7 +23,7 @@ Path: ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\```
 <br><br>
 
 - Powershell:\
-```cd ~ | mkdir .scripts | cd .scripts/ | git clone https://github.com/jonathanforhan/cmaker.git```\
+```cd ~; mkdir .\.scripts; cd .\.scripts\; git clone https://github.com/jonathanforhan/cmaker.git```\
 add ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\``` to your enviornment variable path
 
 ## Use
