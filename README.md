@@ -1,6 +1,6 @@
 # CMaker
 
-CMaker is a CMake qualitity-of-life tool. Strives to be unopinionated and customizable.\
+CMaker is a CMake qualitity-of-life tool. Strives to be unopinionated and customizable.
 ### Features:
 - Customizable CMake templates with sane defaults
 - Simple cmkr commands for building  and running
