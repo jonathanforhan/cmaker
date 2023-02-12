@@ -36,7 +36,7 @@ add ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\``` to your enviornment varia
 - CMaker offers project specific, customizable scripting through declarations in the scripts.cmaker file.\
 ```myscript="echo 'add a keyword and command to execute, then call script with cmkr (keyword)'"```\
 Scripting is localized to one ```scripts.cmaker``` file and called with ```cmkr {keyword}``` 
-- CMaker parses scripts **first** meaning that **all cmkr commands can and will be overridden**
+- CMaker parses scripts **first** meaning that **all cmkr commands can be overridden**
 - Comments are written in the scripts.cmaker file with and prefixed ```#```
 
 ## Templating
