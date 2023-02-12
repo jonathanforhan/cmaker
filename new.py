@@ -1,33 +1,38 @@
 import os, sys
 
-template_path = "/home/jon/.scripts/cmkr/templates/"
+home_dir = os.path.expanduser("~")
+template_path = os.path.join(home_dir, ".scripts/cmkr/templates/.cmakerignore/")
 
 def make_dir(dir):
     cwd = os.getcwd()
     path = os.path.join(cwd, dir)
     os.mkdir(path)
 
-def write_file(name, template, project_name):
-    path = os.path.join(template_path, template)
-    fr = open(path, "r")
-    contents = fr.read()
-    if project_name:
-        contents = contents.replace("foobar", project_name)
-    fr.close()
-    fw = open(name, "w")
-    fw.write(contents)
-    fw.close()
+# recursively copy template dir
+# fw -> write
+# fr -> read
+# fd -> file descriptor
+def write_files(path, replace):
+    for fd in os.listdir(path):
+        if fd == ".cmakerignore":
+            continue
+        fd_path = os.path.join(path, fd)
+        if os.path.isfile(fd_path):
+            fr = open(fd_path, "r")
+            contents = fr.read()
+            if replace:
+                contents = contents.replace("--CMAKER_REPLACE", replace)
+            fr.close()
+            fw = open(fd, "w")
+            fw.write(contents)
+            fw.close()
+        else:
+            make_dir(fd)
+            os.chdir(fd)
+            write_files(fd_path, "")
+            os.chdir("..")
 
 def init(project_name):
     make_dir(project_name)
     os.chdir(project_name)
-    write_file("CMakeLists.txt", "CMakeLists.txt", project_name)
-
-    make_dir("bin")
-    make_dir("build")
-    make_dir("src")
-
-    os.chdir("src")
-    write_file("main.cpp", "main.cpp", "")
-    write_file("CMakeLists.txt", "src_CMakeLists.txt", "")
-    os.chdir("..")
+    write_files(template_path, project_name)

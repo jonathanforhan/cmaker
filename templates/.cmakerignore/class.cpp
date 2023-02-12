@@ -1,0 +1,10 @@
+#include"--CMAKER_REPLACE.hpp"
+
+--CMAKER_REPLACE::--CMAKER_REPLACE() {
+    
+}
+
+--CMAKER_REPLACE::~--CMAKER_REPLACE() {
+    
+}
+

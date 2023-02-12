@@ -1,0 +1,9 @@
+https://trenki2.github.io/blog/2017/07/04/using-sdl2-image-with-cmake/
+
+file taken from source above
+
+To link library:
+    target_link_libraries(**TARGET** ${SDL2_IMAGE_LIBRARIES})
+    target_include_directories(**TARGET** PUBLIC ${SLD2_IMAGE_INCLUDE_DIRS})
+
+see line 86 on cmake file for declarations

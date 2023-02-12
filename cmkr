@@ -1,62 +1,86 @@
 #!/usr/bin/env python3
 import os, sys
-import new, build
+from build import build_debug, build_release, run, clean, clean_all
+from new import init
+from help import print_help
+from add import add_class, add_cmakelists, add_sdl2, add_sdl2_image
+from scripts import run_script
 
-project_name = "CMaker-Project"
 
 def main(argv):
-    if len(sys.argv) < 2 or len(sys.argv) > 4:
-        print("Invalid arguements")
-        sys.exit(1)
+    # 2 arg path, often defaults
+    if len(sys.argv) == 2:
+        arg1 = sys.argv[1]
+        if run_script(arg1):
+            return
+        if arg1 == "--help" or arg1 == "-h":
+            print_help()
+        elif arg1 == "new":
+            init("CMaker-Project")
+        elif arg1 == "build":
+            build_release()
+        elif arg1 == "run":
+            build_debug()
+            run("debug")
+        elif arg1 == "clean":
+            clean()
 
-    if sys.argv[1] == "new":
-        if len(sys.argv) == 3:
-            global project_name
-            project_name = sys.argv[2]
-        new.init(project_name)
+    # 3 arg path with flags
+    elif len(sys.argv) == 3:
+        arg1 = sys.argv[1]
+        arg2 = sys.argv[2]
+        if arg1 == "new":
+            init(arg2)
+        elif arg1 == "build":
+            if arg2 == "--debug" or arg2 == "-d":
+                build_debug()
+            elif arg2 == "--release" or arg2 == "-r":
+                build_release()
+        elif arg1 == "run":
+            if arg2 == "--debug" or arg2 == "-d":
+                build_debug()
+                run("debug")
+            elif arg2 == "--release" or arg2 == "-r":
+                build_release()
+                run("release")
+        elif arg1 == "clean":
+            if arg2 == "--all" or arg2 == "-a":
+                clean_all()
+        elif arg1 == "add":
+            if arg2 == "cmakelists":
+                add_cmakelists()
+            elif arg2 == "SDL2" or arg2 == "sdl2":
+                add_sdl2()
+            elif arg2 == "SDL2_image" or arg2 =="sdl2_image":
+                add_sdl2_image()
+            else:
+                print("add {} is not a valid command".format(arg2))
+                sys.exit(1)
+            # Please make PR if you have dependencies to add
+    
+    # 4+ arg path for compicated stuff
+    elif len(sys.argv) >= 4:
+        arg1 = sys.argv[1]
+        arg2 = sys.argv[2]
+        arg3 = sys.argv[3]
+        if arg1 == "add":
+            if arg2 == "class":
+                for class_name in sys.argv[3:]:
+                    add_class(class_name)
+            else:
+                for arg in sys.argv[2:]:
+                    if arg == "cmakelists":
+                        add_cmakelists()
+                    elif arg == "SDL2" or arg == "sdl2":
+                        add_sdl2()
+                    elif arg == "SDL2_image" or arg == "sdl2_image":
+                        add_sdl2_image()
+                    else:
+                        print("add {} is not a valid command".format(arg))
+                        sys.exit(1)
 
-    elif sys.argv[1] == "build":
-        if len(sys.argv) == 3:
-            if sys.argv[2] == "--debug" or sys.argv[2] == "-d":
-                build.build_debug()
-            elif sys.argv[2] == "--release" or sys.argv[2] == "-r":
-                build.build_release()
-        else:
-            build.build_debug()
-    elif sys.argv[1] == "run":
-        if len(sys.argv) == 3:
-            if sys.argv[2] == "--debug" or sys.argv[2] == "-d":
-                build.build_debug()
-                build.run("debug")
-            elif sys.argv[2] == "--release" or sys.argv[2] == "-r":
-                build.build_release()
-                build.run("release")
-        else:
-            build.build_debug()
-            build.run("debug")
-    elif sys.argv[1] == "clean":
-        if len(sys.argv) == 3:
-            if sys.argv[2] == "--all" or sys.argv[2] == "-a":
-                build.clean_all()
-        else:
-            build.clean()
-    elif sys.argv[1] == "--help" or sys.argv[1] == "-h":
-        print("Commands:\n\
-               \tnew:\n\
-               \t\tinitializes a new cmake++ build enviornment, takes project name as argument\n\
-               \tbuild:\n\
-               \t\tdefault: builds debug cmake build and stores binary in 'project'/bin/debug/\n\
-               \t\t--debug | -d: explicitly state debug build preference\n\
-               \t\t--release | -r: builds release cmake build and stores binary in 'project'/bin/release/\n\
-               \trun:\n\
-               \t\tdefault: builds debug cmake build and then runs the executable\n\
-               \t\t--debug | -d: explicitly state debug build preference\n\
-               \t\t--release | -r: builds release cmake build and then runs the executable\n\
-               \tclean:\n\
-               \t\tdefault: removes all cmake build files in the build directory\n\
-               \t\t--all | -a: removes all cmake build files from build directory and removes debug and release directories")
     else:
-        print("Arguement error")
+        print("Invalid command or arguements")
         sys.exit(1)
 
 if __name__ == "__main__":
