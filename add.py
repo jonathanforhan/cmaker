@@ -1,7 +1,7 @@
 import os, sys
 
 home_dir = os.path.expanduser("~")
-template_path = os.path.join(home_dir, ".scripts/cmkr/templates/.cmakerignore/")
+template_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmakerignore/")
 
 def add_module(target):
     cwd = os.getcwd()
