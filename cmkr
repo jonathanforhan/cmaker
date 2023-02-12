@@ -1,87 +1,27 @@
 #!/usr/bin/env python3
 import os, sys
-from build import build_debug, build_release, run, clean, clean_all
-from new import init
-from help import print_help
-from add import add_class, add_cmakelists, add_sdl2, add_sdl2_image
-from scripts import run_script
+from src import help, new, build, run, clean, add, scripts
 
-
-def main(argv):
-    # 2 arg path, often defaults
-    if len(sys.argv) == 2:
-        arg1 = sys.argv[1]
-        if run_script(arg1):
-            return
-        if arg1 == "--help" or arg1 == "-h":
-            print_help()
-        elif arg1 == "new":
-            init("CMaker-Project")
-        elif arg1 == "build":
-            build_release()
-        elif arg1 == "run":
-            build_debug()
-            run("debug")
-        elif arg1 == "clean":
-            clean()
-
-    # 3 arg path with flags
-    elif len(sys.argv) == 3:
-        arg1 = sys.argv[1]
-        arg2 = sys.argv[2]
-        if arg1 == "new":
-            init(arg2)
-        elif arg1 == "build":
-            if arg2 == "--debug" or arg2 == "-d":
-                build_debug()
-            elif arg2 == "--release" or arg2 == "-r":
-                build_release()
-        elif arg1 == "run":
-            if arg2 == "--debug" or arg2 == "-d":
-                build_debug()
-                run("debug")
-            elif arg2 == "--release" or arg2 == "-r":
-                build_release()
-                run("release")
-        elif arg1 == "clean":
-            if arg2 == "--all" or arg2 == "-a":
-                clean_all()
-        elif arg1 == "add":
-            if arg2 == "cmakelists":
-                add_cmakelists()
-            elif arg2 == "SDL2" or arg2 == "sdl2":
-                add_sdl2()
-            elif arg2 == "SDL2_image" or arg2 =="sdl2_image":
-                add_sdl2_image()
-            else:
-                print("add {} is not supported".format(arg2))
-                sys.exit(1)
-            # Please make PR if you have dependencies to add
-    
-    # 4+ arg path for compicated stuff
-    elif len(sys.argv) >= 4:
-        arg1 = sys.argv[1]
-        arg2 = sys.argv[2]
-        arg3 = sys.argv[3]
-        if arg1 == "add":
-            if arg2 == "class":
-                for class_name in sys.argv[3:]:
-                    add_class(class_name)
-            else:
-                for arg in sys.argv[2:]:
-                    if arg == "cmakelists":
-                        add_cmakelists()
-                    elif arg == "SDL2" or arg == "sdl2":
-                        add_sdl2()
-                    elif arg == "SDL2_image" or arg == "sdl2_image":
-                        add_sdl2_image()
-                    else:
-                        print("add {} is not supported".format(arg))
-                        sys.exit(1)
-
+def main(args):
+    if len(args) == 0:
+        print("Invalid arguments")
+        return
+    if scripts(args):
+        return
+    if args[0] == "--help" or args[0] == "-h":
+        help()
+    elif args[0] == "new":
+        new(args[1:])
+    elif args[0] == "build":
+        build(args[1:])
+    elif args[0] == "run":
+        run(args[1:])
+    elif args[0] == "clean":
+        clean(args[1:])
+    elif args[0] == "add":
+        add(args[1:])
     else:
-        print("Invalid command or arguements")
-        sys.exit(1)
+        print("Invalid arguments")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
