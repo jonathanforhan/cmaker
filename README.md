@@ -24,7 +24,7 @@ add ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\``` to your enviornment varia
 ## Use
 **cmkr** is the command used for all cmaker functionality
 - **new** ***{Project Name}*** - creates a new build evniornment with basic CMake requirements
-    - **from** - add from as in ```cmkr {Project Name} from {CustomTemplate}``` allows for templating for each project structure
+    - **from** - adding **from** as in ```cmkr {Project Name} from {CustomTemplate}``` allows for templating for each project structure
 - **build** - CMake build scripts, flag either *--debug* or *--release*, default is *--debug*
 - **run** - the same as build but it executes the binary
 - **add**
