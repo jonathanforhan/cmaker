@@ -54,7 +54,7 @@ def main(argv):
             elif arg2 == "SDL2_image" or arg2 =="sdl2_image":
                 add_sdl2_image()
             else:
-                print("add {} is not a valid command".format(arg2))
+                print("add {} is not supported".format(arg2))
                 sys.exit(1)
             # Please make PR if you have dependencies to add
     
@@ -76,7 +76,7 @@ def main(argv):
                     elif arg == "SDL2_image" or arg == "sdl2_image":
                         add_sdl2_image()
                     else:
-                        print("add {} is not a valid command".format(arg))
+                        print("add {} is not supported".format(arg))
                         sys.exit(1)
 
     else:
