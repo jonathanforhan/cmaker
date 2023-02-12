@@ -7,7 +7,7 @@ CMaker is a CMake qualitity-of-life tool. Strives to be unopinionated and custom
 - Customizable project specific and template specific commands 
 
 ## Setup
-CMaker is designed for a Unix terminal interface. If you use windows I reccomend making git bash your terminal in VScode or using WSL, as an alternative all commands can be overridden to use powershell in ```scripts.cmaker```
+CMaker was developed primarily for Unix, however it is cross platform with detection for windows users. If you are on windows the commands will default to powershell.
 - ### Unix
 Path: ```~/.scripts/cmaker/```
 - Bash:\
