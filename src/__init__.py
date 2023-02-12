@@ -1,4 +1,4 @@
-from .help import help
+from .message import help, version
 from .new import new
 from .build import build
 from .run import run

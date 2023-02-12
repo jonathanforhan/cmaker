@@ -1,5 +1,5 @@
 def help():
-    print("Commands:\n\
+    print("  Commands:\n\
 \tnew:\n\
 \t\tinitializes a new cmaker build enviornment, takes project name as argument\n\
 \tbuild:\n\
@@ -18,6 +18,7 @@ def help():
 \t\tcmakelists: adds a CMakeLists.txt if one is not already present\n\
 \t\t{dependancies}: some dependancies like SDL2 and SDL2_image are supported with more coming\n\
 \tscripts:\n\
-\t\tany keyword stated in the scripts.cmaker file can be run with cmkr")
+\t\tany keyword stated in the scripts.cmaker file can be run with cmkr\n")
 
-d
+def version():
+    print("CMaker version 1.0.0")
