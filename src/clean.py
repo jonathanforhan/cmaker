@@ -27,23 +27,14 @@ def __check_clean(bt):
 def __clean():
     __check_clean("")
     os.chdir("build")
-    if os.name == "nt":
-        os.system("ri -recurse -force *")
-    else:
-        os.system("rm -rdf *")
-        os.chdir("..")
+    os.system("rm -rdf *")
+    os.chdir("..")
 
 def __clean_all():
     __check_clean("all")
     os.chdir("build")
-    if os.name == "nt":
-        os.system("ri -recurse -force *")
-    else:
-        os.system("rm -rdf *")
+    os.system("rm -rdf *")
     os.chdir("..")
     os.chdir("bin")
-    if os.name == "nt":
-        os.system("ri -recurse -force *")
-    else:
-        os.system("rm -rdf *")
+    os.system("rm -rdf *")
     os.chdir("..")

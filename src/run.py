@@ -21,9 +21,6 @@ def __run(build_type):
     os.chdir("bin")
     os.chdir(build_type)
     for f in os.listdir(os.getcwd()):
-        if os.name == "nt":
-            os.system("{}.exe".format(f))
-        else:
-            os.system("./{}".format(f))
+        os.system("./{}".format(f))
     os.chdir("..")
     os.chdir("..")
