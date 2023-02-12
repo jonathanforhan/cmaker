@@ -18,7 +18,7 @@ Path: ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\```
 <br><br>
 
 - Powershell:\
-```cd && mkdir .scripts && cd .scripts/ && git clone https://github.com/jonathanforhan/cmaker.git```\
+```cd ~ | mkdir .scripts | cd .scripts/ | git clone https://github.com/jonathanforhan/cmaker.git```\
 add ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\``` to your enviornment variable path
 
 ## Use
