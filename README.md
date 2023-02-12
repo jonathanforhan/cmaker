@@ -42,7 +42,7 @@ Scripting is localized to one ```scripts.cmaker``` file and called with ```cmkr 
 
 ## Templating
 - When ```cmkr new``` is called it looks in the ```$HOME/.scripts/cmaker/templates/``` directory and recursively copies everything the default folder, adding another folder in the templates folder will allow to call ```cmkr new {Project} from {Template}``` You can edit or add any file to the ```$HOME/.scripts/cmaker/templates/``` directory to customize your build process.
-- The files under ```.cmakerignore/``` are the templates that are not to be copied on initialization, these include the class templates, and supported ```.cmake``` files and their corresponding ```.docs``` files.
+- The files under ```.cmaker/``` are the templates that are *not* to be copied on initialization, these include the class templates, and supported ```.cmake``` files and their corresponding ```.docs``` files.
 - ```.docs``` files explain how to implement the package into your project, cite the source of the ```.cmake``` file, and any other relevant information.
 - You can edit the templates as you please and their changes will be applied. The only caveat is that if you add new templates under the ```.cmakerignore/``` directory you need to add your own script to copy them in the ```scripts.cmaker``` file.
 
