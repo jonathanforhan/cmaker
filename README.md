@@ -30,7 +30,7 @@ add ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\``` to your enviornment varia
     - **class** ***{Class Name}*** - generates .hpp and .cpp class templates, if you are in the root project directory they will be automatically  placed in src directory.
     - **cmakelists** - generate an empty CMakeLists.txt file in cwd.
     - ***{Dependancies}*** - I'm working to offer a wide range of 'out of the box' .cmake files. PRs with more dependancies would be amazing. When ```cmkr add {dependancy}```is called the .cmake file will be added to the cmake/ directory and the applicable ```find_package()``` command will be added to the root CMakeLists.txt under ```#CMAKER_FIND```. The ```CMAKE_MODULE_PATH``` is also automatically added to the root CMakeLists.txt file under ```#CMAKER_SET```
--**clean** - clears the build folder, ```cmkr clean --all``` clears the build folder as well as bin folder
+- **clean** - clears the build folder, ```cmkr clean --all``` clears the build folder as well as bin folder
 
 ## Scripting
 - CMaker offers project specific, customizable scripting through declarations in the scripts.cmaker file.\
