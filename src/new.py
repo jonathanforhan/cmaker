@@ -18,8 +18,11 @@ def __create(args, len):
     template = "default"
     if len == 3:
         template = args[2]
-    template = os.path.join(template_path, template) # template fd conversion: string -> absolute path
-    __recursive_file_copy(template, project_name)
+    template_fd = os.path.join(template_path, template)
+    if not os.path.exists(template_fd):
+        print("{} is not found in template path".format(template))
+        sys.exit(1)
+    __recursive_file_copy(template_fd, project_name)
 
 def __recursive_file_copy(head, replace):
     for fd in os.listdir(head):
