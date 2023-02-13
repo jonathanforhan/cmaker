@@ -13,8 +13,6 @@ def new(args):
 
 def __create(args, len):
     project_name = args[0]
-    util.mkdir(os.getcwd(), project_name)
-    os.chdir(project_name)
     template = "default"
     if len == 3:
         template = args[2]
@@ -22,6 +20,11 @@ def __create(args, len):
     if not os.path.exists(template_fd):
         print("{} is not found in template path".format(template))
         sys.exit(1)
+    if os.path.exists(os.path.join(os.getcwd(), project_name)):
+        print("{} already exists".format(project_name))
+        sys.exit(1)
+    util.mkdir(os.getcwd(), project_name)
+    os.chdir(project_name)
     __recursive_file_copy(template_fd, project_name)
 
 def __recursive_file_copy(head, replace):
