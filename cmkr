@@ -31,8 +31,12 @@ def __unbox():
     check_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker/unbox.txt")
     if os.path.exists(check_path):
         fix_path = os.path.join(home_dir, ".scripts/cmaker/templates/default")
-        util.mkdir(fix_path, "bin")
-        util.mkdir(fix_path, "build")
+        bin_path = os.path.join(fix_path, "bin")
+        if not os.path.exists(bin_path):
+            util.mkdir(fix_path, "bin")
+        build_path = os.path.join(fix_path, "build")
+        if not os.path.exists(bin_path):
+            util.mkdir(fix_path, "build")
         os.system("rm -rdf {}".format(check_path))
 
 if __name__ == "__main__":
