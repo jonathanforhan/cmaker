@@ -1,0 +1,12 @@
+{
+  "name": "singularity",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "./scripts.py build-debug",
+    "release": "./scripts.py build-release",
+    "run": "cd bin/debug; ./singularity",
+    "run-release": "cd bin/release; ./singularity",
+    "clean": "./scripts.py clean"
+  }
+}

@@ -1,1 +1,0 @@
-this is here for CMaker initialization, if you cloned it and this is still present your installation failed

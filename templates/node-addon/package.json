@@ -1,0 +1,19 @@
+{
+  "name": "project_name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib.cc",
+  "scripts": {
+    "build": "cmake-js -D && cp ./build/Debug/shallow_blue.node ./bin/debug/",
+    "build-release": "cmake-js && cp ./build/Release/shallow_blue.node ./bin/release/",
+    "clean": "rm -rdf ./build/* && rm -rdf ./bin/* && mkdir ./bin/debug && mkdir ./bin/release"
+  },
+  "repository": {
+    "type": "git",
+  },
+  "author": "your_name",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^6.0.0"
+  }
+}
