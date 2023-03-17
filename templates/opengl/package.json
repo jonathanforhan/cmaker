@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "./scripts.py build-debug",
-    "build-release": "./scripts.py build-release",
-    "run": "yarn build; cd bin/debug; ./--CMAKER_REPLACE",
-    "run-release": "yarn release; cd bin/release; ./--CMAKER_REPLACE",
+    "dev": "./scripts.py build-debug",
+    "release-build": "./scripts.py build-release",
+    "dev-run": "yarn build; cd bin/debug; ./--CMAKER_REPLACE",
+    "release-run": "yarn release; cd bin/release; ./--CMAKER_REPLACE",
     "clean": "./scripts.py clean"
   }
 }
