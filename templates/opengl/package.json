@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "./scripts.py build-debug",
     "release-build": "./scripts.py build-release",
-    "dev-run": "yarn build; cd bin/debug; ./--CMAKER_REPLACE",
-    "release-run": "yarn release; cd bin/release; ./--CMAKER_REPLACE",
+    "dev-run": "yarn dev; cd bin/debug; ./--CMAKER_REPLACE",
+    "release-run": "yarn release-build; cd bin/release; ./--CMAKER_REPLACE",
     "clean": "./scripts.py clean"
   }
 }
