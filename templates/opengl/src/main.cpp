@@ -8,7 +8,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "--CMAKER_REPLACE", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window\n";
         glfwTerminate();

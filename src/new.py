@@ -39,6 +39,9 @@ def __recursive_file_copy(head, replace):
             __recursive_file_copy(fd_path, replace)
             os.chdir("..")
         else:
-            contents = util.read_file(head, fd)        # read from template
-            contents = contents.replace("--CMAKER_REPLACE", replace)
-            util.write_file(os.getcwd(), fd, contents) # write to cwd
+            try:
+                contents = util.read_file(head, fd)        # read from template
+                contents = contents.replace("--CMAKER_REPLACE", replace)
+                util.write_file(os.getcwd(), fd, contents) # write to cwd
+            except:
+                continue
