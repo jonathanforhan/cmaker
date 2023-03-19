@@ -17,9 +17,6 @@ else()
     elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/debug)
     endif()
-  if(NOT WIN32)
-    set(GLAD_LIBRARIES dl)
-  endif()
 endif()
 
 # -- Do not remove tags below if you desire cmkr dependency building -- #

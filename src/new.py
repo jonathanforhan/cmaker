@@ -1,8 +1,10 @@
 import os, sys
 from src import util
 
+
 home_dir = os.path.expanduser("~")
 template_path = os.path.join(home_dir, ".scripts/cmaker/templates/")
+
 
 def new(args):
     if len(args) == 1 or (len(args) == 3 and args[1] == "from"):
@@ -10,6 +12,7 @@ def new(args):
     else:
         print("Invalid 'new' command")
         sys.exit(1)
+
 
 def __create(args, len):
     project_name = args[0]
@@ -27,6 +30,7 @@ def __create(args, len):
     os.chdir(project_name)
     __recursive_file_copy(template_fd, project_name)
 
+
 def __recursive_file_copy(head, replace):
     for fd in os.listdir(head):
         fd_path = os.path.join(head, fd)
@@ -40,8 +44,11 @@ def __recursive_file_copy(head, replace):
             os.chdir("..")
         else:
             try:
+                if fd == ".gitkeep":
+                    continue
                 contents = util.read_file(head, fd)        # read from template
                 contents = contents.replace("--CMAKER_REPLACE", replace)
                 util.write_file(os.getcwd(), fd, contents) # write to cwd
             except:
                 continue
+

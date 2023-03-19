@@ -34,5 +34,5 @@ def __build_check(build):
 def __build(build):
     __build_check(build)
     os.chdir("build")
-    os.system("cmake -DCMAKE_BUILD_TYPE={} -DOUTPUT:STRING={} .. && make".format(build.capitalize(), build))
+    os.system("cmake -G Ninja -DCMAKE_BUILD_TYPE={} .. && ninja".format(build.capitalize(), build))
     os.chdir("..")
