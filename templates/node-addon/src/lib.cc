@@ -14,4 +14,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
 
 NODE_API_MODULE(hello, Init);
 
-} // namespace sb
+} // namespace demo

@@ -1,2 +1,0 @@
-# CMaker Scripts keyword="command"
-myscript="echo 'add a keyword and command to execute, then call script with cmkr (keyword)'" # cmaker default commands CAN be overridden!
