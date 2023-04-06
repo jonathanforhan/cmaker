@@ -4,6 +4,7 @@ from src import util
 home_dir = os.path.expanduser("~")
 template_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker")
 
+
 def add(args):
     if len(args) == 0:
         print("Invalid 'add' command")
@@ -26,6 +27,7 @@ def add(args):
                 print("add {} is not supported".format(arg))
                 sys.exit(1)
 
+
 def __check_root():
     check = 0
     for f in os.listdir(os.getcwd()):
@@ -36,6 +38,7 @@ def __check_root():
     print("Must be in root directory")
     sys.exit(1)
 
+
 def __inject(injection, opt):
     __check_root()
     contents = util.read_file(os.getcwd(), "CMakeLists.txt")
@@ -43,6 +46,7 @@ def __inject(injection, opt):
         return
     contents = contents.replace("CMAKER_{}".format(opt), "CMAKER_{}\n{}".format(opt, injection))
     util.write_file(os.getcwd(), "CMakeLists.txt", contents)
+
 
 def __add_module(mod):
     __check_root()
@@ -54,6 +58,7 @@ def __add_module(mod):
     contents = util.read_file(template_path, mod)
     util.write_file(os.getcwd(), mod, contents)
     os.chdir("..")
+
 
 def __add_class(class_name):
     # if in root cd src
