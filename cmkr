@@ -14,18 +14,21 @@ def main(args):
     if len(args) == 0:
         print("Invalid arguments")
         return
+    if args[0] == "--help" or args[0] == "-h":
+        help()
+        return
+    elif args[0] == "--version" or args[0] == "-v":
+        version()
+        return
+    elif args[0] == "new":
+        new(args[1:])
+        return
 
     config = Config()
     config.parse_config()
 
     if scripts(args, config["scripts"]):
         return
-    if args[0] == "--help" or args[0] == "-h":
-        help()
-    elif args[0] == "--version" or args[0] == "-v":
-        version()
-    elif args[0] == "new":
-        new(args[1:])
     elif args[0] == "add":
         add(args[1:], config)
     else:

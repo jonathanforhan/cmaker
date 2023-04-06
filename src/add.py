@@ -5,14 +5,19 @@ home_dir = os.path.expanduser("~")
 template_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker")
 
 
-def add(args):
+def add(args, config):
     if len(args) == 0:
         sys.exit("Invalid 'add' command")
     if args[0] == 'class':
         if len(args) == 1:
             sys.exit("Class command requires class name")
-        for class_name in args[1:]:
-            __add_class(class_name)
+        elif len(args) == 2:
+            class_name = args[1]
+            __add_class(class_name, config)
+        elif len(args) == 3:
+            class_name = args[1]
+            path = args[2]
+            __add_class(class_name, config, path)
     else:
         for arg in args:
             if arg == "cmakelists":
@@ -56,22 +61,64 @@ def __add_module(mod):
     os.chdir("..")
 
 
-def __add_class(class_name):
-    # if in root cd src
-    for f in os.listdir(os.getcwd()):
-        if f == "src" and os.path.isdir(f):
-            os.chdir(f)
-            break
+def __add_class(class_name, config, path="."):
+    os.chdir(path)
     for f in os.listdir(os.getcwd()):
         if f == class_name + ".hpp" or f == class_name + ".cpp":
             print("Class already exists")
             return
-    hpp = util.read_file(template_path, "class.hpp")
-    hpp = hpp.replace("--CMAKER_REPLACE", class_name)
-    util.write_file(os.getcwd(), "{}.hpp".format(class_name), hpp)
-    cpp = util.read_file(template_path, "class.cpp")
-    cpp = cpp.replace("--CMAKER_REPLACE", class_name)
-    util.write_file(os.getcwd(), "{}.cpp".format(class_name), cpp)
+        if f == class_name + ".hxx" or f == class_name + ".cxx":
+            print("Class already exists")
+            return
+        if f == class_name + ".h" or f == class_name + ".c":
+            print("Class already exists")
+            return
+
+    header = util.read_file(template_path, "class.cxx.header")
+    header = header.replace("--CMAKER_REPLACE", class_name.capitalize())
+    if not config["PROJECT"]["NAMESPACE"] == "":
+        header = header.replace("--CMAKER_NAMESPACE", "\nnamespace " + config["PROJECT"]["NAMESPACE"] + " {\n")
+        header = header.replace("--CMAKER_END_NAMESPACE", "\n} // namespace " + config["PROJECT"]["NAMESPACE"] + "\n")
+    else:
+        header = header.replace("--CMAKER_NAMESPACE", "")
+        header = header.replace("--CMAKER_END_NAMESPACE", "")
+
+    if config["PROJECT"]["INCLUDE-GUARDS"] == "pragma":
+        header = header.replace("--CMAKER_INCLUDE_GUARD", "#pragma once")
+        header = header.replace("--CMAKER_END_INCLUDE_GUARD", "")
+    else:
+        include_settings = config["PROJECT"]["INCLUDE-GUARDS"].split("-")
+        include_guard = ""
+        for setting in include_settings:
+            if setting == "PROJECT":
+                if not include_guard == "":
+                    include_guard += "_"
+                include_guard += config["NAME"].upper()
+            if setting == "DIR":
+                if not include_guard == "":
+                    include_guard += "_"
+                include_guard += os.getcwd().split("/")[-1].upper()
+            if setting == "FILE":
+                if not include_guard == "":
+                    include_guard += "_"
+                include_guard += (class_name + "_" + config["PROJECT"]["CPP"]["HEADER"]).upper()
+
+        header = header.replace("--CMAKER_INCLUDE_GUARD", "#ifndef " + include_guard + "\n#define " + include_guard)
+        header = header.replace("--CMAKER_END_INCLUDE_GUARD", "#endif // " + include_guard)
+
+    util.write_file(os.getcwd(), "{}.{}".format(class_name, config["PROJECT"]["CPP"]["HEADER"].lower()), header)
+
+    source = util.read_file(template_path, "class.cxx.source")
+    source = source.replace("--CMAKER_REPLACE", class_name)
+    source = source.replace("--CMAKER_EXTENSION", config["PROJECT"]["CPP"]["HEADER"].lower())
+    if not config["PROJECT"]["NAMESPACE"] == "":
+        source = source.replace("--CMAKER_NAMESPACE", "\nnamespace " + config["PROJECT"]["NAMESPACE"] + " {\n")
+        source = source.replace("--CMAKER_END_NAMESPACE", "} // namespace " + config["PROJECT"]["NAMESPACE"] + "\n")
+    else:
+        source = source.replace("--CMAKER_NAMESPACE", "")
+        source = source.replace("--CMAKER_END_NAMESPACE", "")
+    util.write_file(os.getcwd(), "{}.{}".format(class_name, config["PROJECT"]["CPP"]["SOURCE"].lower()), source)
+
 
 def __add_cmakelists():
     for f in os.listdir(os.getcwd()):
@@ -80,6 +127,7 @@ def __add_cmakelists():
             return
     f = open("CMakeLists.txt", "x")
     f.close()
+
 
 def __add_sdl2():
     __inject("find_package(SDL2 REQUIRED)", "FIND")

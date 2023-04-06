@@ -20,7 +20,7 @@ class Config(UserDict):
         return self.data[key]
 
     def __init_defaults(self):
-        self["name"] = "--CMAKER_REPLACE"
+        self["name"] = "Unnamed"
         self["version"] = "1.0.0"
         self["license"] = "Unspecified"
         self["project"] = Config({
@@ -46,14 +46,14 @@ class Config(UserDict):
                     "-Wpedantic"
                 ]
             }),
-            "export-compile-commands": True,
-            "verbose-makefile": False,
             "include-guards": "PROJECT-DIR-FILE",
             "namespace": ""
         })
         self["build"] = Config({
             "make": "Unix-Makefiles",
             "Ninja": True,
+            "export-compile-commands": True,
+            "verbose-makefile": False,
             "debug" : Config({
                 "executable-name": "--CMAKER_REPLACE",
                 "build-dir": "build-debug",
@@ -86,9 +86,13 @@ class Config(UserDict):
                     self.__json_recursive_copy(data[key], check[key])
                 else:
                     check[key] = data[key]
+            # handle 'None' defaults
+            if key == "namespace" and data.get(key):
+                check[key] = data[key]
 
     def parse_config(self):
         self.__init_defaults()
+        cwd = os.getcwd()
         needle = False
         while "home" in os.getcwd() or "C:" in os.getcwd():
             for f in os.listdir(os.getcwd()):
@@ -107,4 +111,6 @@ class Config(UserDict):
                 self.__json_recursive_copy(data, self)
         except:
             sys.exit("cmaker-config.json contains invalid json")
+
+        os.chdir(cwd) # reset to cwd once we find cmaker-config
 
