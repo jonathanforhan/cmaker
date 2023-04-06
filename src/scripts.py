@@ -1,18 +1,15 @@
 import os
-from re import findall
+import sys
 
-def scripts(args):
-    if len(args) > 1:
-        return False
-    if not os.path.exists("scripts.cmaker"):
-        return False
-    arg = args[0]
-    f = open("scripts.cmaker", "r")
-    lines = f.readlines();
-    for line in lines:
-        line, _, _ = line.partition('#')
-        if line.lstrip().startswith(arg) and line.find('=') != -1:
-            command = findall('"([^"]*)"', line)
-            os.system(command[0])
-            return True
-    return False
+def scripts(args, scripts):
+    command = False
+    for arg in args:
+        for key in scripts:
+            if arg == key:
+                value = scripts[key]
+                if not type(value) == type(""):
+                    sys.exit("Scripts must be strings")
+                os.system(value)
+                command = True
+    return command
+

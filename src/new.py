@@ -11,22 +11,23 @@ def new(args):
     if len(args) == 1 or (len(args) == 3 and args[1] == "from"):
         __create(args, len(args))
     else:
-        print("Invalid 'new' command")
-        sys.exit(1)
+        sys.exit("Invalid 'new' command")
 
 
 def __create(args, len):
     project_name = args[0]
     template = "default"
+
     if len == 3:
         template = args[2]
+
     template_fd = os.path.join(template_path, template)
+
     if not os.path.exists(template_fd):
-        print("{} is not found in template path".format(template))
-        sys.exit(1)
+        sys.exit("{} is not found in template path".format(template))
     if os.path.exists(os.path.join(os.getcwd(), project_name)):
-        print("{} already exists".format(project_name))
-        sys.exit(1)
+        sys.exit("{} already exists".format(project_name))
+
     util.mkdir(os.getcwd(), project_name)
     os.chdir(project_name)
     __recursive_file_copy(template_fd, project_name)

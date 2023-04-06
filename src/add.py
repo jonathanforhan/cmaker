@@ -7,12 +7,10 @@ template_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker")
 
 def add(args):
     if len(args) == 0:
-        print("Invalid 'add' command")
-        sys.exit(1)
+        sys.exit("Invalid 'add' command")
     if args[0] == 'class':
         if len(args) == 1:
-            print("Class command requires class name")
-            sys.exit(1)
+            sys.exit("Class command requires class name")
         for class_name in args[1:]:
             __add_class(class_name)
     else:
@@ -24,8 +22,7 @@ def add(args):
             elif arg == "SDL2_image" or arg == "sdl2_image":
                 __add_sdl2_image()
             else:
-                print("add {} is not supported".format(arg))
-                sys.exit(1)
+                sys.exit("add {} is not supported".format(arg))
 
 
 def __check_root():
@@ -35,8 +32,7 @@ def __check_root():
             check += 1
         if check > 1:
             return
-    print("Must be in root directory")
-    sys.exit(1)
+    sys.exit("Must be in root directory")
 
 
 def __inject(injection, opt):
