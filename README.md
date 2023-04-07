@@ -11,6 +11,9 @@ CMaker is a CMake qualitity-of-life tool. Strives to be unopinionated and custom
 - Make
 - Python3
 
+### Additional Support:
+- Ninja
+
 ## Setup
 CMaker was developed primarily for Unix, however, using git bash (with some confirguring of CMake and make) or using WSL will give full functionality on Windows
 - ### Unix

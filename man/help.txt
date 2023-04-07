@@ -1,0 +1,25 @@
+//----CMaker----//
+
+cmkr new {project}:
+    generates new cmkr project
+
+cmkr new {project} from {template}:
+    generates new cmkr project from template in ~/.scripts/cmaker/templates/
+    
+cmkr add cxx:
+    add new C++ source and header with namespace and header guard specified cmaker-config.json
+
+cmkr add c:
+    add new C source and header with namespace and header guard specified cmaker-config.json
+
+cmkr add c/cxx ./{path}:
+    add the source and header to specified path
+
+cmkr build:
+    builds cmaker project using cmaker-config.json build options (uses debug by default)
+
+cmkr build --debug:
+    builds cmaker project in debug (same as without flag)
+
+cmkr build --release:
+    builds cmaker project in release

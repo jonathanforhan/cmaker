@@ -28,34 +28,22 @@ class Config(UserDict):
                 "header" : "hpp",
                 "source" : "cpp",
                 "standard" : 17,
-                "standard-required" : True,
-                "cxx-flags": [
-                    "-Wall",
-                    "-Wextra",
-                    "-Wpedantic"
-                ]
+                "standard-required" : True
             }),
             "c" : Config({
                 "header" : "h",
                 "source" : "c",
                 "standard" : 99,
-                "standard-required" : True,
-                "c-flags": [
-                    "-Wall",
-                    "-Wextra",
-                    "-Wpedantic"
-                ]
+                "standard-required" : True
             }),
             "include-guards": "PROJECT-DIR-FILE",
             "namespace": ""
         })
         self["build"] = Config({
-            "make": "Unix-Makefiles",
-            "Ninja": True,
+            "make": "Ninja",
             "export-compile-commands": True,
             "verbose-makefile": False,
             "debug" : Config({
-                "executable-name": "--CMAKER_REPLACE",
                 "build-dir": "build-debug",
                 "output" : "./bin/debug",
                 "flags" : [
@@ -63,7 +51,6 @@ class Config(UserDict):
                 ]
             }),
             "release" : Config({
-                "executable-name": "--CMAKER_REPLACE",
                 "build-dir": "build-release",
                 "output" : "./bin/release",
                 "flags" : [
@@ -72,8 +59,9 @@ class Config(UserDict):
             })
         })
         self["scripts"] = {
-            "run-dev" : "cmkr build --debug; cd ./bin/debug; ./--CMAKER_REPLACE",
+            "dev" : "cmkr build --debug; cd ./bin/debug; ./--CMAKER_REPLACE",
             "run-release" : "cmkr build --release; cd ./bin/release; ./--CMAKER_REPLACE",
+            "clean": "rm -rdf ./build**/*"
         }
 
     def __json_recursive_copy(self, data, check):
