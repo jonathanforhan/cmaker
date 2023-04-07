@@ -28,31 +28,31 @@ class Config(UserDict):
                 "header" : "hpp",
                 "source" : "cpp",
                 "standard" : 17,
-                "standard-required" : True
+                "standard-required" : False
             }),
             "c" : Config({
                 "header" : "h",
                 "source" : "c",
                 "standard" : 99,
-                "standard-required" : True
+                "standard-required" : False
             }),
             "include-guards": "PROJECT-DIR-FILE",
             "namespace": ""
         })
         self["build"] = Config({
             "make": "Ninja",
-            "export-compile-commands": True,
+            "export-compile-commands": False,
             "verbose-makefile": False,
             "debug" : Config({
                 "build-dir": "build-debug",
-                "output" : "./bin/debug",
+                "output" : "bin/debug",
                 "flags" : [
                     "CMAKE_BUILD_TYPE=Debug"
                 ]
             }),
             "release" : Config({
                 "build-dir": "build-release",
-                "output" : "./bin/release",
+                "output" : "bin/release",
                 "flags" : [
                     "CMAKE_BUILD_TYPE=Release"
                 ]
@@ -66,7 +66,7 @@ class Config(UserDict):
 
     def __json_recursive_copy(self, data, check):
         for key in data:
-            if check.get(key) and data.get(key):
+            if check.get(key) != None and data.get(key) != None:
                 if not type(check[key]) == type(data[key]):
                     if not (type(check[key]) == type(Config()) and type(data[key]) == type({})):
                         sys.exit("cmaker-config.json contains invalid configuration data for option: {}".format(key))
@@ -74,9 +74,6 @@ class Config(UserDict):
                     self.__json_recursive_copy(data[key], check[key])
                 else:
                     check[key] = data[key]
-            # handle 'None' defaults
-            if key == "namespace" and data.get(key):
-                check[key] = data[key]
 
     def parse_config(self):
         self.__init_defaults()

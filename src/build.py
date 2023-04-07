@@ -44,17 +44,20 @@ def __build(build, config):
     util.mkdir(os.getcwd(), build_dir)
     os.chdir(build_dir)
     
-    command = "cmake -G {} {} {} {} {} ..; {}".format(
+    command = "cmake -G '{}' {} {} {} {} ..".format(
         make,
         export_compile_commands,
         verbose_makefile,
         output,
         build_flags,
-        make_cmd
     )
+
     display = command.split(" ")
-    print(" ".join(display[:3]))
-    for item in display[3:]:
+    make_len = len(make.split(" "))
+    print(" ".join(display[:(2 + make_len)]))
+    for item in display[(2 + make_len):-1]:
         print(item)
+
     os.system(command)
+    os.system(make_cmd)
     
