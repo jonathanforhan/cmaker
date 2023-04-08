@@ -38,6 +38,7 @@ def __verify_unique(class_name):
     for fd in os.listdir(os.getcwd()):
         if (fd == class_name + ".hpp" or fd == class_name + ".cpp"
                 or fd == class_name + ".hxx" or fd == class_name + ".cxx"
+                or fd == class_name + ".cc"
                 or fd == class_name + ".h" or fd == class_name + ".c"):
             sys.exit("Class already exists")
 
