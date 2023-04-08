@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 from src import util
 
 def build(args, config):
@@ -20,13 +21,13 @@ def __build(build, config):
 
     export_compile_commands = "-DCMAKE_EXPORT_COMPILE_COMMANDS="
     if config["BUILD"]["EXPORT-COMPILE-COMMANDS"]:
-        export_compile_commands += "TRUE"
-    else: export_compile_commands += "FALSE"
+        export_compile_commands += "1"
+    else: export_compile_commands += "0"
 
     verbose_makefile = "-DCMAKE_VERBOSE_MAKEFILE="
     if config["BUILD"]["VERBOSE-MAKEFILE"]:
-        verbose_makefile += "TRUE"
-    else: verbose_makefile += "FALSE"
+        verbose_makefile += "1"
+    else: verbose_makefile += "0"
 
     build_dir = config["BUILD"][build]["BUILD-DIR"]
 
@@ -60,4 +61,13 @@ def __build(build, config):
 
     os.system(command)
     os.system(make_cmd)
-    
+    # place compile_commands.json in project dir for clangd
+    try:
+        cwd = os.getcwd()
+        while not util.check_root():
+            os.chdir("..")
+        root = os.getcwd()
+        os.chdir(cwd)
+        os.replace("./compile_commands.json", os.path.join(root, "compile_commands.json"))
+    except:
+        pass
