@@ -1,0 +1,45 @@
+{
+  "name": "--CMAKER_REPLACE",
+  "version": "1.0.0",
+  "license": "Unspecified",
+  "project": {
+    "cpp": {
+      "header": "hpp",
+      "source": "cpp",
+      "standard": 17,
+      "standard-required": true
+    },
+    "c": {
+      "header": "h",
+      "source": "c",
+      "standard": 99,
+      "standard-required": true
+    },
+    "include-guards": "PROJECT-PATH-FILE",
+    "namespace": ""
+  },
+  "build": {
+    "make": "Ninja",
+    "export-compile-commands": true,
+    "verbose-makefile": false,
+    "debug": {
+      "build-dir": "build-debug",
+      "output": "./bin/debug",
+      "flags": [
+        "CMAKE_BUILD_TYPE=Debug"
+      ]
+    },
+    "release": {
+      "build-dir": "build-release",
+      "output": "./bin/release",
+      "flags": [
+        "CMAKE_BUILD_TYPE=Release"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "cmkr build --debug; cd ./bin/debug; ./--CMAKER_REPLACE",
+    "run-release": "cmkr build --release; cd ./bin/release; ./--CMAKER_REPLACE",
+    "clean": "rm -rdf ./build**/*"
+  }
+}
