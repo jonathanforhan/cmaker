@@ -15,7 +15,7 @@ def main(args):
     if len(args) == 0:
         sys.exit("Invalid arguments")
     if args[0] == "help" or args[0] == "--help" or args[0] == "-h":
-        with open("man/help.txt", "r") as f:
+        with open("./man/help.txt", "r") as f:
             print(f.read())
             print("CMaker version 1.2.1")
         return
