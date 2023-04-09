@@ -21,8 +21,18 @@ def write_file(path, fd, contents):
     f.close()
 
 
-def check_root():
+def is_root():
     for f in os.listdir(os.getcwd()):
         if f == "cmaker-config.json":
             return True
     return False
+
+
+def get_root():
+    cwd = os.getcwd()
+    while not is_root():
+        os.chdir("..")
+    root = os.getcwd()
+    os.chdir(cwd)
+    return root
+

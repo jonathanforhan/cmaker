@@ -16,7 +16,7 @@ def __gen_include_guard(header, settings, project, name, ext):
         elif setting == "PATH":
             cwd = os.getcwd()
             local = []
-            while not util.check_root():
+            while not util.is_root():
                 local.append(os.getcwd().split('/')[-1])
                 os.chdir("..")
             os.chdir(cwd)

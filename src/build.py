@@ -31,7 +31,7 @@ def __build(build, config):
 
     build_dir = config["BUILD"][build]["BUILD-DIR"]
 
-    output_dir = os.path.join(os.getcwd(), config["BUILD"][build]["OUTPUT"])
+    output_dir = os.path.join(util.get_root(), config["BUILD"][build]["OUTPUT"])
     util.mkdir('/', output_dir)
     output = "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:FILEPATH='" + output_dir + "'"
 
@@ -40,7 +40,7 @@ def __build(build, config):
 
     make_cmd = "ninja" if make == "Ninja" else "make"
 
-    while not util.check_root():
+    while not util.is_root():
         os.chdir("..")
     util.mkdir(os.getcwd(), build_dir)
     os.chdir(build_dir)
@@ -63,11 +63,6 @@ def __build(build, config):
     os.system(make_cmd)
     # place compile_commands.json in project dir for clangd
     try:
-        cwd = os.getcwd()
-        while not util.check_root():
-            os.chdir("..")
-        root = os.getcwd()
-        os.chdir(cwd)
-        os.replace("./compile_commands.json", os.path.join(root, "compile_commands.json"))
+        os.replace("./compile_commands.json", os.path.join(util.get_root(), "compile_commands.json"))
     except:
         pass
