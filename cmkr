@@ -8,6 +8,7 @@ from src import add
 from src import Config
 from src import scripts 
 from src import build
+from src import run
 from src import util 
 
 
@@ -15,7 +16,9 @@ def main(args):
     if len(args) == 0:
         sys.exit("Invalid arguments")
     if args[0] == "help" or args[0] == "--help" or args[0] == "-h":
-        with open("./man/help.txt", "r") as f:
+        home_dir = os.path.expanduser("~")
+        help_path = os.path.join(home_dir, ".scripts/cmaker/man/help.txt")
+        with open(help_path) as f:
             print(f.read())
             print("CMaker version 1.2.1")
         return
@@ -35,6 +38,8 @@ def main(args):
         add(args[1:], config)
     elif args[0] == "build":
         build(args[1:], config)
+    elif args[0] == "run":
+        run(args[1:], config)
     else:
         print("Invalid arguments")
 

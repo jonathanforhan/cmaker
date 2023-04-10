@@ -1,5 +1,6 @@
 import os
 
+
 def mkdir(path, fd):
     path = os.path.join(path, fd)
     if not os.path.exists(path):
@@ -29,8 +30,11 @@ def is_root():
 
 
 def get_root():
+    home_dir = os.path.expanduser("~")
     cwd = os.getcwd()
     while not is_root():
+        if not home_dir in os.getcwd():
+            raise Exception("No cmaker-config.json in path")
         os.chdir("..")
     root = os.getcwd()
     os.chdir(cwd)

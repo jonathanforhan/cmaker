@@ -10,17 +10,13 @@ template_path = os.path.join(home_dir, ".scripts/cmaker/templates/")
 def new(args):
     if len(args) == 1 or (len(args) == 3 and args[1] == "from"):
         __create(args, len(args))
-    else:
-        sys.exit("Invalid 'new' command")
+    else: sys.exit("Invalid 'new' command")
 
 
 def __create(args, len):
     project_name = args[0]
-    template = "default"
-
-    if len == 3:
-        template = args[2]
-
+    
+    template = "default" if len != 3 else args[2]
     template_fd = os.path.join(template_path, template)
 
     if not os.path.exists(template_fd):
@@ -52,5 +48,5 @@ def __recursive_file_copy(head, replace):
                 contents = contents.replace("--CMAKER_REPLACE", replace)
                 util.write_file(os.getcwd(), fd, contents) # write to cwd
             except:
-                continue
+                pass
 

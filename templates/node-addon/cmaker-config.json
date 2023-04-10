@@ -38,8 +38,6 @@
     }
   },
   "scripts": {
-    "dev": "cmkr build --debug; cd ./bin/debug; ./--CMAKER_REPLACE",
-    "run-release": "cmkr build --release; cd ./bin/release; ./--CMAKER_REPLACE",
     "clean": "rm -rdf ./build**/*"
   }
 }

@@ -32,20 +32,19 @@ def __build(build, config):
     build_dir = config["BUILD"][build]["BUILD-DIR"]
 
     output_dir = os.path.join(util.get_root(), config["BUILD"][build]["OUTPUT"])
+    output_dir = output_dir.replace("\\", "/")
+    output_dir = output_dir.replace("/./", "/") # redundant
     util.mkdir('/', output_dir)
-    output = "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:FILEPATH='" + output_dir + "'"
+    output = f"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:FILEPATH=\"{output_dir}\""
 
     build_flags = config["BUILD"][build]["FLAGS"]
     build_flags = "-D" + " -D".join(build_flags)
 
-    make_cmd = "ninja" if make == "Ninja" else "make"
-
-    while not util.is_root():
-        os.chdir("..")
+    os.chdir(util.get_root())
     util.mkdir(os.getcwd(), build_dir)
     os.chdir(build_dir)
     
-    command = "cmake -G '{}' {} {} {} {} ..".format(
+    command = "cmake -G \"{}\" {} {} {} {} ..".format(
         make,
         export_compile_commands,
         verbose_makefile,
@@ -55,14 +54,22 @@ def __build(build, config):
 
     display = command.split(" ")
     make_len = len(make.split(" "))
-    print(" ".join(display[:(2 + make_len)]))
+
+    # print cmake args
+    print("\033[95m" + " ".join(display[:(2 + make_len)]) + "\033[0m")
     for item in display[(2 + make_len):-1]:
+        item = item.replace("\\", "/")
+        item = item.replace("/./", "/") # redundant
+        item = "\033[95m" + item + "\033[0m"
         print(item)
 
     os.system(command)
-    os.system(make_cmd)
+    os.system("cmake --build .")
     # place compile_commands.json in project dir for clangd
     try:
         os.replace("./compile_commands.json", os.path.join(util.get_root(), "compile_commands.json"))
     except:
         pass
+
+    os.chdir(util.get_root())
+
