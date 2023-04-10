@@ -60,8 +60,12 @@ def __cxx_class(config, path, class_name):
 
     """ Header Creation """
     header = util.read_file(template_path, "class.cxx.header")
-    formated_class_name = "".join(class_name.split("_").capitalize())
-    header = header.replace("--CMAKER_REPLACE", formated_class_name)
+
+    class_list = class_name.replace("-", "_").split("_")
+    for i in range(len(class_list)):
+        class_list[i] = class_list[i].capitalize()
+
+    header = header.replace("--CMAKER_REPLACE", "".join(class_list))
     if namespace != "":
         header = header.replace("--CMAKER_NAMESPACE", "\nnamespace " + namespace + " {\n")
         header = header.replace("--CMAKER_END_NAMESPACE", "\n} // namespace " + namespace + "\n")
