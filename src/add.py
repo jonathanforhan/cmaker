@@ -18,7 +18,7 @@ def __gen_include_guard(header, settings, project, name, ext):
             local = []
             while not util.is_root():
                 dir = os.getcwd().replace("\\", "/")
-                local.append(os.getcwd().split('/')[-1])
+                local.append(dir.split('/')[-1])
                 os.chdir("..")
             os.chdir(cwd)
             for fd in reversed(local):
