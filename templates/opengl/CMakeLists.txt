@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(--CMAKER_REPLACE)
 
+# see cmaker-config.json for additional config flags
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 else()
@@ -12,11 +13,6 @@ else()
     set(GLAD_LIBRARIES dl)
   endif()
 endif()
-
-include_directories(extern/glad/include/
-                    extern/glfw/include/
-                    extern/glm/
-                    extern/stb/)
 
 # GLFW config
 option(GLFW_INSTALL OFF)
@@ -29,9 +25,23 @@ set(GLAD_SOURCE "${CMAKE_SOURCE_DIR}/extern/glad/src/glad.c")
 
 add_subdirectory(src)
 
-# EXTERN DEPENDENCIES
+add_executable(${CMAKE_PROJECT_NAME}
+    ${APP_SOURCE}
+    )
+
 target_link_libraries (${PROJECT_NAME}
                        PRIVATE
                        glfw
                        ${GLFW_LIBRARIES}
                        ${GLAD_LIBRARIES})
+
+include_directories(extern/glad/include/
+                    extern/glfw/include/
+                    extern/glm/
+                    extern/stb/)
+
+target_include_directories(${CMAKE_PROJECT_NAME}
+    PRIVATE
+    ${APP_INCLUDE}
+    )
+
