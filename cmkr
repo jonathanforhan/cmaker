@@ -4,6 +4,7 @@
 import os
 import sys
 from src import new 
+from src import init
 from src import add 
 from src import Config
 from src import scripts 
@@ -28,6 +29,9 @@ def main(args):
     elif args[0] == "new":
         new(args[1:])
         return
+    elif args[0] == "init":
+        init()
+        return
 
     config = Config()
     config.parse_config()
@@ -41,7 +45,7 @@ def main(args):
     elif args[0] == "run":
         run(args[1:], config)
     else:
-        print("Invalid arguments")
+        sys.exit("Invalid arguments")
 
 
 if __name__ == "__main__":
