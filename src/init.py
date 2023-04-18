@@ -1,6 +1,6 @@
 import os
 import sys
-from src import util
+from . import util
 
 
 home_dir = os.path.expanduser("~")
@@ -36,4 +36,3 @@ def __file_copy(head, replace):
             contents = util.read_file(head, fd)        # read from template
             contents = contents.replace("--CMAKER_REPLACE", replace)
             util.write_file(os.getcwd(), fd, contents) # write to cwd
-

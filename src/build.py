@@ -1,6 +1,6 @@
 import os
 import sys
-from src import util
+from . import util
 
 def build(args, config):
     if len(args) == 0:
@@ -72,4 +72,3 @@ def __build(build, config):
         pass
 
     os.chdir(util.get_root())
-

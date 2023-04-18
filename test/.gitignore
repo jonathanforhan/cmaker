@@ -15,7 +15,7 @@
 
 # Scripts
 package.json
-cmaker-config.json
+compile_commands.json
 
 # IDE
 .idea

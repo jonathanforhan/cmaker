@@ -1,5 +1,5 @@
 import os, sys
-from src import util
+from . import util
 
 home_dir = os.path.expanduser("~")
 template_path = os.path.join(home_dir, ".scripts/cmaker/templates/.cmaker")

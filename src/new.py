@@ -1,6 +1,6 @@
 import os
 import sys
-from src import util
+from . import util
 
 
 home_dir = os.path.expanduser("~")
@@ -49,4 +49,3 @@ def __recursive_file_copy(head, replace):
                 util.write_file(os.getcwd(), fd, contents) # write to cwd
             except:
                 pass
-

@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from src import util
+from . import util
 
 
 def run(args, config):
@@ -34,4 +34,3 @@ def __run(build, config):
         subprocess.call(exe)
     except:
         print("\033[31mCMAKER BUILD FAILED\033[0m")
-
