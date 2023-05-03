@@ -19,7 +19,7 @@ CMaker was developed primarily for Unix, however, using git bash (with some conf
 - ### Unix
 Path: ```~/.scripts/cmaker/```
 - Bash:\
-```mkdir ~/.scripts ; git clone https://github.com/jonathanforhan/cmaker.git ~/.scripts ; echo 'export PATH="$HOME/.scripts/cmaker:$PATH"' >> ~/.bashrc; source ~/.bashrc```
+```mkdir ~/.scripts/cmaker && git clone https://github.com/jonathanforhan/cmaker.git ~/.scripts/cmaker && echo 'export PATH="$HOME/.scripts/cmaker:$PATH"' >> ~/.bashrc && source ~/.bashrc```
 
 - ### Windows
 Path: ```C:\\Users\\%userprofile%\\.scripts\\cmaker\\```
