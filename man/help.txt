@@ -6,13 +6,13 @@ cmkr new {project}:
 cmkr new {project} from {template}:
     generates new cmkr project from template in ~/.scripts/cmaker/templates/
     
-cmkr add cxx:
+cmkr add cxx {class name}:
     add new C++ source and header with namespace and header guard specified cmaker-config.json
 
-cmkr add c:
+cmkr add c {class name}:
     add new C source and header with namespace and header guard specified cmaker-config.json
 
-cmkr add c/cxx ./{path}:
+cmkr add c/cxx {class name} ./{path}:
     add the source and header to specified path
 
 cmkr build:
