@@ -47,7 +47,8 @@ def __file_copy(head, replace):
 
     for fd in os.listdir(head):
         if fd == "CMakeLists.txt" and not cmake_present \
-        or fd == "cmaker-config.json" and not cmaker_conf_present:
+        or fd == "cmaker-config.json" and not cmaker_conf_present \
+        or fd == ".clang-format":
             contents = util.read_file(head, fd)        # read from template
             contents = contents.replace("--CMAKER_REPLACE", replace)
             util.write_file(os.getcwd(), fd, contents) # write to cwd

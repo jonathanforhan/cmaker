@@ -1,4 +1,3 @@
-### CMaker default clang format
 ---
 Language: Cpp
 AccessModifierOffset: -4
@@ -53,7 +52,7 @@ BinPackParameters: true
 BitFieldColonSpacing: Both
 BraceWrapping:
   AfterCaseLabel: false
-  AfterClass: false
+  AfterClass: true
   AfterControlStatement: Never
   AfterEnum: false
   AfterExternBlock: false
