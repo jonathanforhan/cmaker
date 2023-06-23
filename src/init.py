@@ -25,14 +25,29 @@ def __create():
 
 
 def __file_copy(head, replace):
+    cmake_present = False
+    cmaker_conf_present = False
     for fd in os.listdir(os.getcwd()):
         if fd == "CMakeLists.txt":
-            sys.exit("CMakeLists.txt already present")
+            while True:
+                rep = input("A CMakeLists.txt is present in this directory, do you wish to replace it? [y/n] ")
+                if rep.upper() == "Y":
+                    break
+                elif rep.upper() == "N":
+                    cmake_present = True
+                    break
         if fd == "cmaker-config.json":
-            sys.exit("cmaker-config.json already present")
+            while True:
+                rep = input("A cmaker-config.json is present in this directory, do you wish to replace it? [y/n] ")
+                if rep.upper() == "Y":
+                    break
+                elif rep.upper() == "N":
+                    cmaker_conf_present = True
+                    break
 
     for fd in os.listdir(head):
-        if fd == "CMakeLists.txt" or fd == "cmaker-config.json":
+        if fd == "CMakeLists.txt" and not cmake_present \
+        or fd == "cmaker-config.json" and not cmaker_conf_present:
             contents = util.read_file(head, fd)        # read from template
             contents = contents.replace("--CMAKER_REPLACE", replace)
             util.write_file(os.getcwd(), fd, contents) # write to cwd
