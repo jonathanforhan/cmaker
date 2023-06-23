@@ -1,5 +1,5 @@
 {
-  "name": "qt_cal",
+  "name": "--CMAKER_REPLACE",
   "version": "1.0.0",
   "license": "Unspecified",
   "project": {
@@ -25,16 +25,12 @@
     "debug": {
       "build-dir": "build-debug",
       "output": "./bin/debug",
-      "flags": [
-        "CMAKE_BUILD_TYPE=Debug"
-      ]
+      "flags": ["CMAKE_BUILD_TYPE=Debug"]
     },
     "release": {
       "build-dir": "build-release",
       "output": "./bin/release",
-      "flags": [
-        "CMAKE_BUILD_TYPE=Release"
-      ]
+      "flags": ["CMAKE_BUILD_TYPE=Release"]
     }
   },
   "scripts": {
