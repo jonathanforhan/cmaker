@@ -19,5 +19,6 @@ public:
 
 private:
     Ui::Widget *ui;
+    int counter = 0;
 };
 #endif // WIDGET_H
