@@ -50,13 +50,22 @@ foreach(FD ${ROOT})
 endforeach()
 
 # Check subdirs for c/cpp files
+# also headers so QT can run MOC on them
 function(RECURSE_DIRS FD LS)
     file(GLOB_RECURSE CPP "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.cpp")
     file(GLOB_RECURSE CXX "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.cxx")
     file(GLOB_RECURSE CC "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.cc")
     file(GLOB_RECURSE C "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.c")
+    file(GLOB_RECURSE HPP "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.hpp")
+    file(GLOB_RECURSE HXX "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.hxx")
+    file(GLOB_RECURSE HC "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.hh")
+    file(GLOB_RECURSE H "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.h")
     file(GLOB_RECURSE UI "${CMAKE_CURRENT_SOURCE_DIR}/${FD}/*.ui")
-    list(APPEND RET ${CPP} ${CXX} ${CC} ${C} ${UI})
+    list(APPEND RET
+        ${CPP} ${CXX} ${CC} ${C}
+        ${HPP} ${HXX} ${HH} ${H}
+        ${UI}
+        )
     # CMake return statement (push to parent scope)
     set(${LS} ${RET} PARENT_SCOPE)
 endfunction()
