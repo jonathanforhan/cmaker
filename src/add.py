@@ -62,8 +62,10 @@ def __cxx_class(config, path, class_name):
     header = util.read_file(template_path, "class.cxx.header")
 
     class_list = class_name.replace("-", "_").split("_")
-    for i in range(len(class_list)):
-        class_list[i] = class_list[i].capitalize()
+    class_list_len = len(class_list)
+    if class_list_len > 1 and not class_name[0].isupper(): # avoid messing up PascalCase
+        for i in range(class_list_len):
+            class_list[i] = class_list[i].capitalize()
 
     header = header.replace("--CMAKER_REPLACE", "".join(class_list))
     if namespace != "":
