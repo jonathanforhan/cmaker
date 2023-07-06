@@ -1,6 +1,7 @@
 --CMAKER_INCLUDE_GUARD
 --CMAKER_NAMESPACE
-class --CMAKER_REPLACE {
+class --CMAKER_REPLACE
+{
 public:
     --CMAKER_REPLACE() = default;
 
