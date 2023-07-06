@@ -18,8 +18,8 @@ cmkr add c/cxx {class name} ./{path}:
 cmkr build:
     builds cmaker project using cmaker-config.json build options (uses debug by default)
 
-cmkr build --debug:
+cmkr build --debug | -d:
     builds cmaker project in debug (same as without flag)
 
-cmkr build --release:
+cmkr build --release | -r:
     builds cmaker project in release
